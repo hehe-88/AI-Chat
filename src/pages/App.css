@@ -17,6 +17,6 @@
 }
 
 .layout-basic-demo .arco-layout-content {
-  background-color: pink;
+  /* background-color: pink; */
   height: 80vh;
 }

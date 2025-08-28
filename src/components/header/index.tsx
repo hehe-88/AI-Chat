@@ -4,11 +4,13 @@ import dayjs from 'dayjs'
 import * as React from 'react'
 import useStorage from '../../hooks/useStorage'
 import './index.css'
+import type { Message } from '../conversation-list'
+
 export type Conversation = {
   title: string
   createTime: string
   isPresent: boolean
-  messages: []
+  messages: Message[]
 }
 const INITIAL_CONVERSATION: Conversation = {
   title: '',
@@ -34,36 +36,20 @@ const ChatHeader: React.FC = () => {
   return (
     <div className='flex flex-row align-center'>
       <div className='flex-1 text-left !ml-10 '>AI模拟面试网站</div>
-      <Button
-        type='primary'
-        // className='!mr-2 cursor-pointer'
-        onClick={handleAddConversation}
-      >
+      <Button type='primary' onClick={handleAddConversation}>
         新建对话
       </Button>
       <div className='w-[150px] flex flex-row'>
         {isLogin ? (
-          <Button
-            type='default'
-            onClick={handleLogout}
-            // className='!mr-2 cursor-pointer'
-          >
+          <Button type='default' onClick={handleLogout}>
             登出
           </Button>
         ) : (
-          <Button
-            type='default'
-            onClick={handleLogin}
-            // className='!mr-2 cursor-pointer'
-          >
+          <Button type='default' onClick={handleLogin}>
             登陆
           </Button>
         )}
-        <Button
-          type='default'
-          onClick={handleLogout}
-          // className='!mr-2 cursor-pointer'
-        >
+        <Button type='default' onClick={handleLogout}>
           注册
         </Button>
       </div>

@@ -18,18 +18,12 @@ const eventBus = {
   },
   off(event: string, callback: (data: any) => void) {
     if (this.listeners[event]) {
-      this.listeners[event] = this.listeners[event].filter(
-        cb => cb !== callback
-      )
+      this.listeners[event] = this.listeners[event].filter(cb => cb !== callback)
     }
   },
 }
 
-function useStorage<T>(
-  key: string,
-  initialValue: T,
-  type: StorageType = 'local'
-) {
+function useStorage<T>(key: string, initialValue: T, type: StorageType = 'local') {
   const storage = type === 'local' ? window.localStorage : window.sessionStorage
 
   // 从 storage 取值
@@ -48,8 +42,7 @@ function useStorage<T>(
   // 更新 storage
   const setValue = (value: T | ((val: T) => T)) => {
     try {
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value
+      const valueToStore = value instanceof Function ? value(storedValue) : value
       setStoredValue(valueToStore)
       storage.setItem(key, JSON.stringify(valueToStore))
       // 触发自定义事件，通知同一页面内的其他组件
@@ -75,9 +68,7 @@ function useStorage<T>(
   React.useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
       if (event.key === key) {
-        setStoredValue(
-          event.newValue ? JSON.parse(event.newValue) : initialValue
-        )
+        setStoredValue(event.newValue ? JSON.parse(event.newValue) : initialValue)
       }
     }
     window.addEventListener('storage', handleStorageChange)
